@@ -14,7 +14,6 @@ export default function Home() {
     e.preventDefault();
     if (!url) return;
 
-    // Simple validation
     let targetUrl = url;
     if (!/^https?:\/\//i.test(url)) {
       targetUrl = `https://${url}`;
@@ -25,12 +24,13 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <main className="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden bg-[#0D1110]">
       {/* Decorative background elements */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px] -z-10" />
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[140px] -z-10" />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#102A20]/20 rounded-full blur-[120px] -z-10" />
 
-      <div className="max-w-3xl w-full space-y-12 z-10">
+      <div className="max-w-4xl w-full space-y-16 z-10">
+
         {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -38,14 +38,14 @@ export default function Home() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center space-y-6"
         >
-          <div className="inline-flex items-center justify-center p-3 glass rounded-2xl mb-4">
+          <div className="inline-flex items-center justify-center p-4 bg-[#131A17] border border-white/5 shadow-xl rounded-[20px] mb-4">
             <Activity className="w-8 h-8 text-primary" />
           </div>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-primary to-purple-400">
-            Intelligent Web Scraper
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight text-white leading-tight">
+            Intelligent <span className="text-primary">Site Analysis</span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto">
-            Instantly analyze any website's technology stack and extract structured data with precision. Enter a URL to begin the deep scan.
+          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-medium">
+            Analyze any website's underlying stack and effortlessly extract structured data with precision. Enter a URL below to begin the scan.
           </p>
         </motion.div>
 
@@ -56,25 +56,26 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
         >
           <form onSubmit={handleAnalyze} className="relative group mx-auto max-w-2xl">
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
+            {/* Ambient glow container */}
+            <div className="absolute -inset-2 bg-primary/10 rounded-[28px] blur-xl opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-500" />
 
-            <div className="relative flex items-center glass p-2 rounded-2xl">
-              <Search className="w-6 h-6 text-slate-400 ml-4 hidden sm:block" />
+            <div className="relative flex items-center bg-[#131A17] border border-white/10 p-2.5 rounded-[24px] shadow-2xl">
+              <Search className="w-6 h-6 text-primary ml-4 hidden sm:block" />
               <input
                 type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                placeholder="https://example.com"
-                className="w-full bg-transparent border-none outline-none text-slate-200 px-4 py-4 text-lg placeholder:text-slate-500 focus:ring-0"
+                placeholder="https://target-domain.com"
+                className="w-full bg-transparent border-none outline-none text-white px-5 py-4 text-lg placeholder:text-slate-500 focus:ring-0"
                 required
               />
               <button
                 type="submit"
                 disabled={isLoading}
-                className="px-6 py-4 bg-primary hover:bg-blue-600 text-white font-medium rounded-xl transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-8 py-4 bg-primary hover:bg-[#2EE59D] text-[#022A1E] font-bold rounded-[16px] transition-all duration-300 flex items-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_24px_rgba(52,211,153,0.2)] hover:shadow-[0_4px_32px_rgba(52,211,153,0.3)] shrink-0"
               >
-                {isLoading ? "Analyzing..." : "Analyze"}
-                {!isLoading && <ArrowRight className="w-5 h-5" />}
+                {isLoading ? "Scanning" : "Analyze"}
+                {!isLoading ? <ArrowRight className="w-5 h-5" strokeWidth={3} /> : <div className="w-4 h-4 border-2 border-[#022A1E] border-t-transparent rounded-full animate-spin" />}
               </button>
             </div>
           </form>
@@ -85,26 +86,29 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-12"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 max-w-3xl mx-auto"
         >
-          <div className="glass p-8 flex flex-col gap-4 hover:border-primary/50 transition-colors">
-            <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-primary">
+          <div className="bg-[#131A17] border border-white/5 p-8 rounded-[24px] flex flex-col gap-6 hover:border-primary/20 hover:bg-[#14201A] transition-colors group">
+            <div className="w-14 h-14 bg-[#0A1410] border border-white/5 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
               <Code2 className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-semibold">Tech Stack Detection</h3>
-            <p className="text-slate-400">Automatically identify frontend frameworks, backend servers, and analytics tools used by the target site.</p>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2">Tech Stack Detection</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Automatically identify frontend frameworks, backend servers, and WAF protections used by the target site.</p>
+            </div>
           </div>
 
-          <div className="glass p-8 flex flex-col gap-4 hover:border-purple-500/50 transition-colors">
-            <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400">
+          <div className="bg-[#131A17] border border-white/5 p-8 rounded-[24px] flex flex-col gap-6 hover:border-primary/20 hover:bg-[#14201A] transition-colors group">
+            <div className="w-14 h-14 bg-[#0A1410] border border-white/5 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
               <Database className="w-6 h-6" />
             </div>
-            <h3 className="text-xl font-semibold">Smart Extraction</h3>
-            <p className="text-slate-400">Discover extractable entities like images, links, or text automatically. Choose what to scrape and export easily.</p>
+            <div>
+              <h3 className="text-xl font-bold text-white mb-2">Smart Extraction</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Discover extractable entities like images, links, tables, and structured data automatically.</p>
+            </div>
           </div>
         </motion.div>
       </div>
     </main>
   );
 }
-
